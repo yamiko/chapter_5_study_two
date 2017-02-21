@@ -1,0 +1,36 @@
+/* Weight under 10 kg */
+Condition weight_under_10_kg:
+	weight < 10 kg
+
+/* Age category of a child */	
+Condition is_a_child:
+	age < 15 years
+
+/* Patient is eligible for ART */	
+Condition eligible_for_ART:
+	'Eligible for ART' is Yes
+
+/* Triomune-baby is unavailable */	
+Condition triomune_baby_not_available:
+	'Drug is NOT available' is 'Triomune baby'	
+	
+/* Prescribe Triomune baby */	
+Action prescribe_triomune_baby:
+	'Prescribe' 'Triomune baby'
+
+/* Prescribe split adult T30 */	
+Action prescribe_split_T30:
+	'Prescribe' 'Split T30'
+	
+/* Recommendation for prescribing first line regimen in children  */
+Recommendation prescribing_triomune_baby:
+	Conditions weight_under_10_kg, is_a_child, eligible_for_ART
+	Actions prescribe_triomune_baby
+	
+/* Recommendation for prescribing ART drugs in the absence of triomune-baby in children  */
+Recommendation when_triomune_baby_is_unavailable:
+	Conditions weight_under_10_kg, is_a_child, eligible_for_ART, triomune_baby_not_available 
+	Actions prescribe_split_T30
+		
+					
+					
